@@ -2,6 +2,7 @@ package trilha.back.financys.entities;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_category")
@@ -12,6 +13,9 @@ public class Category {
     private Long id;
     private String name;
     private String description;
+
+    @OneToMany(mappedBy = "category")
+    private Set<Lancamentos> lancamentos;
 
 
     public Category() {

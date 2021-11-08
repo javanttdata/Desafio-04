@@ -29,29 +29,28 @@ public class LancamentosController {
     private LancamentosRepository repository;
 
 
-    @PostMapping("/lancamentos/create")
+    @PostMapping("/lancamentos")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value="Cria um Lancamento")
     public Lancamentos create(@RequestBody Lancamentos lancamentos){
         return repository.save(lancamentos);
     }
 
-    @GetMapping("/lancamentos/readAll")
+    @GetMapping("/lancamentos")
     @ApiOperation(value= "Lista todos os Lancamentos")
     public ResponseEntity<List<Lancamentos>> readAll(){
         List<Lancamentos> readAll = repository.findAll();
         return ResponseEntity.ok(readAll);
     }
 
-    @GetMapping("/lancamentos/read/{id}")
+    @GetMapping("/lancamentos/{id}")
     @ApiOperation(value="Retorna os Lancamentos pelo ID")
     public ResponseEntity<Lancamentos> read(@PathVariable(name = "id") Long id){
-        //verificar a linha de baixo. contém erro
-        Lancamentos read = repository.getById(id);
+        Lancamentos read = repository.findById(id).get();
         return ResponseEntity.ok(read);
     }
 
-    @PutMapping(value = "/lancamentos/update/{id}")
+    @PutMapping(value = "/lancamentos/{id}")
     @ApiOperation(value="Atualiza os Lancamentos pelo ID")
     public ResponseEntity<Lancamentos> update(@PathVariable(name = "id") Long id, @RequestBody Lancamentos lancamentos){
         lancamentos.setId(id);
@@ -59,7 +58,7 @@ public class LancamentosController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @DeleteMapping("/lancamentos/delete/{id}")
+    @DeleteMapping("/lancamentos/{id}")
     @ApiOperation(value="Deleta um Lancamento pelo ID")
     @ResponseStatus(HttpStatus.OK)
     public void deleteLancamentos(@PathVariable Long id){

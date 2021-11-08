@@ -32,29 +32,28 @@ public class CategoryController {
 //        return new CategoryDTO(list.indexOf(category));
 //    }
 
-    @PostMapping("/categorias/create")
+    @PostMapping("/categorias")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Cria uma Categoria")
     public Category create(@RequestBody Category category){
         return repository.save(category);
     }
 
-    @GetMapping("/categorias/readAll")
+    @GetMapping("/categorias")
     @ApiOperation(value="Retorna a lista de todas Categorias")
     public ResponseEntity<List<Category>> readAll(){
         List<Category> readAll = repository.findAll();
         return ResponseEntity.ok(readAll);
     }
 
-    @GetMapping("/categorias/read/{id}")
+    @GetMapping("/categorias/{id}")
     @ApiOperation(value="Retorna as Categorias pelo ID")
-    public ResponseEntity<Category> read(@PathVariable(name = "id") Long id){
-       //verificar a linha de baixo. contém erro
-        Category read = repository.getById(id);
+    public ResponseEntity<Category> read(@PathVariable Long id){
+        Category read = repository.findById(id).get();
         return ResponseEntity.ok(read);
     }
 
-    @PutMapping(value = "/categorias/update/{id}")
+    @PutMapping(value = "/categorias/{id}")
     @ApiOperation(value="Atualiza as Categorias pelo ID")
     public ResponseEntity<Category> update(@PathVariable(name = "id") Long id, @RequestBody Category category){
         category.setId(id);

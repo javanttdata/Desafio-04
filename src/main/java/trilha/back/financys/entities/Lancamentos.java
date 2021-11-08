@@ -1,6 +1,7 @@
 package trilha.back.financys.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -20,6 +21,11 @@ public class Lancamentos {
     private LocalDate dataLancamento;
     private boolean paid;
     private Long categoryId;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    @JsonIgnore
+    private Category category;
 
     public Lancamentos() {
     }

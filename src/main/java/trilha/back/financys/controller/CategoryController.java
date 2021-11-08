@@ -21,17 +21,6 @@ public class CategoryController {
     @Autowired
     private CategoryRepository repository;
 
-//      private List<Category> list = new ArrayList<Category>();
-
-
-//    @PostMapping("/categorias")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @ApiOperation(value="Cria uma Categoria")
-//    public CategoryDTO create(@RequestBody Category category) {
-//        list.add(category);
-//        return new CategoryDTO(list.indexOf(category));
-//    }
-
     @PostMapping("/categorias")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Cria uma Categoria")
@@ -61,7 +50,7 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @DeleteMapping("/categorias/delete/{id}")
+    @DeleteMapping("/categorias/{id}")
     @ApiOperation(value="Deleta uma Categoria pelo ID")
     @ResponseStatus(HttpStatus.OK)
     public void deleteCategory(@PathVariable Long id){

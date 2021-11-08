@@ -13,25 +13,27 @@ public class Lancamentos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private String description;
     private String type;
     private String amount;
+
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataLancamento;
+
     private boolean paid;
-    private Long categoryId;
+
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @JsonIgnore
     private Category category;
 
     public Lancamentos() {
     }
 
     public Lancamentos(Long id, String name, String description, String type, String amount, LocalDate dataLancamento,
-                       boolean paid, Long categoryId) {
+                       boolean paid) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -39,8 +41,21 @@ public class Lancamentos {
         this.amount = amount;
         this.dataLancamento = dataLancamento;
         this.paid = paid;
-        this.categoryId = categoryId;
 
+
+    }
+
+    @Override
+    public String toString() {
+        return "Lancamentos{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", type='" + type + '\'' +
+                ", amount='" + amount + '\'' +
+                ", dataLancamento=" + dataLancamento +
+                ", paid=" + paid +
+                '}';
     }
 
     public Long getId() {
@@ -99,25 +114,11 @@ public class Lancamentos {
         this.paid = paid;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    @Override
-    public String toString() {
-        return "Lancamentos{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", type='" + type + '\'' +
-                ", amount='" + amount + '\'' +
-                ", dataLancamento=" + dataLancamento +
-                ", paid=" + paid +
-                ", categoryId=" + categoryId +
-                '}';
-    }
+    public Object findByCategoryId(Long id) {
+        return getDataLancamento();
+    };
 }
